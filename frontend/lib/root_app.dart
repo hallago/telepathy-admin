@@ -7,7 +7,7 @@ import 'package:telepathy_admin/app_router.dart';
 import 'package:telepathy_admin/generated/l10n.dart';
 import 'package:telepathy_admin/providers/app_preferences_provider.dart';
 import 'package:telepathy_admin/providers/user_data_provider.dart';
-// import 'package:telepathy_admin/theme/themes.dart';
+import 'package:telepathy_admin/theme/themes.dart';
 import 'package:telepathy_admin/utils/app_focus_helper.dart';
 
 class RootApp extends StatefulWidget {
@@ -67,8 +67,8 @@ class _RootAppState extends State<RootApp> {
                         ],
                         locale: provider.locale,
                         onGenerateTitle: (context) => Lang.of(context).appTitle,
-                        //theme: AppThemeData.instance.light(),
-                        //darkTheme: AppThemeData.instance.dark(),
+                        theme: AppThemeData.instance.light(),
+                        darkTheme: AppThemeData.instance.dark(),
                         themeMode: provider.themeMode,
                       );
                     },

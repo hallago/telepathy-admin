@@ -8,7 +8,7 @@ import 'package:telepathy_admin/app_router.dart';
 import 'package:telepathy_admin/constants/dimens.dart';
 import 'package:telepathy_admin/generated/l10n.dart';
 import 'package:telepathy_admin/providers/user_data_provider.dart';
-// import 'package:telepathy_admin/theme/theme_extensions/app_button_theme.dart';
+import 'package:telepathy_admin/theme/theme_extensions/app_button_theme.dart';
 import 'package:telepathy_admin/theme/theme_extensions/app_color_scheme.dart';
 import 'package:telepathy_admin/utils/app_focus_helper.dart';
 import 'package:telepathy_admin/views/widgets/public_master_layout/public_master_layout.dart';
@@ -156,7 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               height: 40.0,
                               width: double.infinity,
                               child: ElevatedButton(
-                                //style: themeData.extension<AppButtonTheme>()!.primaryElevated,
+                                style: themeData.extension<AppButtonTheme>()!.primaryElevated,
                                 onPressed: (_isFormLoading
                                     ? null
                                     : () => _doLoginAsync(
@@ -172,7 +172,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: 40.0,
                             width: double.infinity,
                             child: TextButton(
-                              //style: themeData.extension<AppButtonTheme>()!.secondaryText,
+                              style: themeData.extension<AppButtonTheme>()!.secondaryText,
                               onPressed: () => GoRouter.of(context).go(RouteUri.register),
                               child: RichText(
                                 text: TextSpan(

@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:telepathy_admin/providers/user_data_provider.dart';
 import 'package:telepathy_admin/views/screens/error_screen.dart';
 import 'package:telepathy_admin/views/screens/login_screen.dart';
+import 'package:telepathy_admin/views/screens/dashboard_screen.dart';
 
 class RouteUri {
   static const String home = '/';
@@ -34,7 +35,7 @@ const List<String> publicRoutes = [
   // RouteUri.register, // Enable this line for actual authentication flow.
 ];
 
-GoRouter appRouter(UserDataProvider read) {
+GoRouter appRouter(UserDataProvider userDataProvider) {
   return GoRouter(
     initialLocation: RouteUri.home,
     errorPageBuilder: (context, state) => NoTransitionPage<void>(
@@ -47,6 +48,13 @@ GoRouter appRouter(UserDataProvider read) {
         redirect: (context, state) => RouteUri.dashboard,
       ),
       GoRoute(
+        path: RouteUri.dashboard,
+        pageBuilder: (context, state) => NoTransitionPage<void>(
+          key: state.pageKey,
+          child: const DashboardScreen(),
+        ),
+      ),
+      GoRoute(
         path: RouteUri.login,
         pageBuilder: (context, state) => NoTransitionPage<void>(
           key: state.pageKey,
@@ -54,6 +62,24 @@ GoRouter appRouter(UserDataProvider read) {
         ),
       ),
     ],
-    
+    redirect: (context, state) {
+      if (unrestrictedRoutes.contains(state.matchedLocation)) {
+        return null;
+      } else if (publicRoutes.contains(state.matchedLocation)) {
+        // Is public route.
+        if (userDataProvider.isUserLoggedIn()) {
+          // User is logged in, redirect to home page.
+          return RouteUri.home;
+        }
+      } else {
+        // Not public route.
+        if (!userDataProvider.isUserLoggedIn()) {
+          // User is not logged in, redirect to login page.
+          return RouteUri.login;
+        }
+      }
+
+      return null;
+    },
   );
 }

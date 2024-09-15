@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-//import 'package:provider/provider.dart';
+import 'package:provider/provider.dart';
 import 'package:telepathy_admin/app_router.dart';
 import 'package:telepathy_admin/constants/dimens.dart';
 import 'package:telepathy_admin/generated/l10n.dart';
+import 'package:telepathy_admin/providers/user_data_provider.dart';
 import 'package:telepathy_admin/theme/theme_extensions/app_color_scheme.dart';
-//import 'package:telepathy_admin/views/widgets/portal_master_layout/portal_master_layout.dart';
+import 'package:telepathy_admin/views/widgets/portal_master_layout/portal_master_layout.dart';
 import 'package:telepathy_admin/views/widgets/public_master_layout/public_master_layout.dart';
 
 class ErrorScreen extends StatelessWidget {
@@ -13,10 +14,17 @@ class ErrorScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {    
+    final userDataProvider = context.read<UserDataProvider>();
 
-    return PublicMasterLayout(
+    if (userDataProvider.isUserLoggedIn()) {
+      return PortalMasterLayout(
         body: _content(context),
       );
+    } else {
+      return PublicMasterLayout(
+        body: _content(context),
+      );
+    }    
   }
 
   Widget _content(BuildContext context) {
